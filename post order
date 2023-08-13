@@ -1,0 +1,14 @@
+class Tree {
+    ArrayList<Integer> postOrder(Node node) {
+        ArrayList<Integer> arr= new ArrayList<>();
+        postOrder(node, arr);
+        return arr;
+    }
+    void postOrder(Node root, ArrayList<Integer> arr){
+        if(root==null) return;
+        postOrder(root.left, arr);
+        postOrder(root.right, arr);
+        arr.add(root.data);
+        return;
+    }
+}
