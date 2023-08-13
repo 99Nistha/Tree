@@ -1,0 +1,59 @@
+preorder:
+ArrayList<Integer> preOrder(Node root)
+{
+    ArrayList<Integer> arr= new ArrayList<>();
+    Stack<Node> st= new Stack<>();
+    Node node= root;
+    while(true){
+        if(node!=null){
+            st.push(node);
+            arr.add(node.data);
+            node= node.left;
+        }else{
+            if(st.isEmpty()) break;
+            node= st.pop();
+            node= node.right;
+        }
+    }
+    return arr;
+}
+
+inorder:
+ArrayList<Integer> inOrder(Node root)
+{
+    ArrayList<Integer> arr= new ArrayList<>();
+    Stack<Node> st= new Stack<>();
+    Node node= root;
+    while(true){
+        if(node!=null){
+            st.push(node);
+            node= node.left;
+        }else{
+            if(st.isEmpty()) break;
+            node= st.pop();
+            arr.add(node.data);
+            node= node.right;
+        }
+    }
+    return arr;
+}
+
+post order:
+ArrayList<Integer> postOrder(Node node) {
+        // code here
+  Stack<Node> s1= new Stack<>();
+  Stack<Node> s2= new Stack<>();
+  ArrayList<Integer> arr= new ArrayList<>();
+  s1.push(node);
+  while(!s1.isEmpty()){
+      Node curr= s1.pop();
+      s2.push(curr);
+      if(curr.left!=null) s1.push(curr.left);
+      if(curr.right!=null) s1.push(curr.right);
+  }
+  while(!s2.isEmpty()){
+      Node curr= s2.pop();
+      arr.add(curr.data);
+  }
+  return arr;
+}
