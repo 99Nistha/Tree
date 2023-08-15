@@ -1,0 +1,55 @@
+class Pair{
+    TreeNode node;
+    int vertex;
+    int level;
+    public Pair(TreeNode node, int vertex, int level){
+        this.node= node;
+        this.vertex= vertex;
+        this.level= level;
+    }
+}
+class Solution
+{
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        // add your code here
+        Queue<Pair> queue= new LinkedList<>();
+        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map= new TreeMap<>();
+        queue.add(new Pair(root, 0, 0));
+        while(!queue.isEmpty()){
+            Pair order= queue.poll();
+            TreeNode currNode= order.node;
+            int vertex= order.vertex;
+            int level= order.level;
+            
+            if(!map.containsKey(vertex)){
+                map.put(vertex, new TreeMap<>());
+            }
+            if(!map.get(vertex).containsKey(level)){
+                map.get(vertex).put(level, new PriorityQueue<>());
+            }
+            map.get(vertex).get(level).add(currNode.val);
+            
+            if(currNode.left!=null){
+                queue.add(new Pair(currNode.left, vertex-1, level+1));
+            }
+            if(currNode.right!=null){
+                queue.add(new Pair(currNode.right, vertex+1, level+1));
+            }
+        }
+        List<List<Integer>> res= new ArrayList<>();
+        for(TreeMap<Integer, PriorityQueue<Integer>> vertex: map.values()){
+            List<Integer> arr= new ArrayList<>();
+            for( PriorityQueue<Integer> level: vertex.values()){
+                while(!level.isEmpty()){
+                    arr.add(level.poll());
+                }
+            }
+            res.add(arr);
+        }
+        return res;
+    }
+}
+//TC: O(N)// traversing all node
+    //+ O(logN) Pq
+//SC: O(N) storing all the node
+    //+ O(N) queue 
