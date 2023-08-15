@@ -1,0 +1,11 @@
+public static boolean isSymmetric(Node root)
+    {
+        if(root==null) return true;
+        return isSymmetric(root.left, root.right);
+    }
+    public static boolean isSymmetric(Node root1, Node root2){
+        if(root1==null && root2==null) return true;
+        if(root1==null || root2==null) return false;
+        if(root1.data!=root2.data) return false;
+        return (isSymmetric(root1.left, root2.right) && isSymmetric(root1.right, root2.left));
+    }
