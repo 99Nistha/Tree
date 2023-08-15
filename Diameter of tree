@@ -1,0 +1,19 @@
+class Solution {
+    int maxWithInNode=0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        // Your code here,from each node whats the max 
+        if(root==null) return 0;
+        int a= height(root);
+        return maxWithInNode;
+    }
+    public int height(TreeNode root){
+        if(root==null) return 0;
+        int left= height(root.left);
+        int right= height(root.right);
+        int max= left+ right;
+        maxWithInNode= Math.max(maxWithInNode, max);
+        return (1+Math.max(left, right));
+    }
+}
+
+TC: O(N)
