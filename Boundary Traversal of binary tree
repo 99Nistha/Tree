@@ -1,0 +1,47 @@
+class Solution
+{
+	ArrayList <Integer> boundary(Node node)
+	{
+	    ArrayList <Integer> arr= new ArrayList<>();
+	    if(node==null) return arr;
+	    if(!isLeaf(node)) arr.add(node.data);
+	    leftBoundary(node, arr);
+	    addLeafs(node,arr);
+	    rightBoundary(node, arr);
+	    return arr;
+	}
+	 boolean isLeaf(Node node){
+	     if(node.left==null && node.right==null) return true;
+	     return false;
+	 }
+	 void leftBoundary(Node node, ArrayList <Integer> arr){
+	     Node curr= node.left;
+	     while(curr!=null){
+	         if(!isLeaf(curr)) arr.add(curr.data);
+	         if(curr.left!=null) curr= curr.left;
+	         else curr= curr.right;
+	     }
+	     return;
+	 }
+	 void rightBoundary(Node node, ArrayList <Integer> arr){
+	     Stack<Integer> st= new Stack<>();
+	     Node curr= node.right;
+	     while(curr!=null){
+	         if(!isLeaf(curr)) st.push(curr.data);
+	         if(curr.right!=null) curr= curr.right;
+	         else curr= curr.left;
+	     }
+	     while(!st.isEmpty()){
+	         arr.add(st.pop());
+	     }
+	     return;
+	 }
+	 void addLeafs(Node node, ArrayList <Integer> arr){
+	     if(isLeaf(node)) arr.add(node.data);
+	     if(node.left!=null) addLeafs(node.left, arr);
+	     if(node.right!=null) addLeafs(node.right, arr);
+	     return;
+	 }
+}
+TC: O(H)+O(H)+O(N)// left boundary , right boundary, traversing for leaf
+SC: O(N)// recursive aux sapec  traversing for leaf, in worst cake for a skewed graph it can bre o(n)
