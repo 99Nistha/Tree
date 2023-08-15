@@ -1,0 +1,35 @@
+class Pair{
+    Node node;
+    int vertex;
+    public Pair(Node node, int vertex){
+        this.node= node;
+        this.vertex= vertex;
+    }
+}
+class Solution
+{
+    //Function to return a list of nodes visible from the top view 
+    //from left to right in Binary Tree.
+    static ArrayList<Integer> topView(Node root)
+    {
+        // add your code
+        ArrayList<Integer> arr= new ArrayList<>();
+        TreeMap<Integer, Integer> map= new TreeMap<>();
+        Queue<Pair> queue= new LinkedList<>();
+        queue.add(new Pair(root, 0));
+        while(!queue.isEmpty()){
+            Pair curr= queue.poll();
+            Node currNode= curr.node;
+            int vertex= curr.vertex;
+            if(!map.containsKey(vertex)){
+                map.put(vertex, currNode.data);
+            }
+            if(currNode.left!=null) queue.add(new Pair(currNode.left, vertex-1));
+            if(currNode.right!=null) queue.add(new Pair(currNode.right, vertex+1));
+        }
+        for(int val: map.values()){
+            arr.add(val);
+        }
+        return arr;
+    }
+}
