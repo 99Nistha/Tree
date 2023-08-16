@@ -1,0 +1,31 @@
+class BinaryTree {
+    // Function to return a list containing the inorder traversal of the tree.
+    static ArrayList<Integer> preorder(Node root) {
+        // Code
+        ArrayList<Integer> arr= new ArrayList<>();
+        Node curr= root;
+        while(curr!=null){
+            if(curr.left==null){// if its a root node
+                arr.add(curr.data);
+                curr= curr.right;
+            }else{
+                Node prev= curr.left;
+                while(prev.right!=null && prev.right!=curr){
+                    prev= prev.right;
+                }
+                if(prev.right==null){ // make the thread now
+                    prev.right= curr;
+                    arr.add(curr.data);
+                    curr= curr.left;
+                }else if(prev.right==curr){//remove the thread, print, and move to right
+                    curr= curr.right;
+                    prev.right=null;
+                }
+            }
+        }
+        return arr;
+    }
+//TC: the internal while loop will run in chunk, and can be said as N, and the main while loop will loop over all the nocdes so N on that as well
+//SC: no extra space o(1)
+    
+}
