@@ -1,0 +1,22 @@
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int Key) {
+        TreeNode curr= root;
+        while(curr!=null){
+            if(curr.val<=Key){
+                if(curr.right==null){
+                    curr.right= new TreeNode(Key);
+                    return root;
+                }
+                curr= curr.right;
+            }else{
+                if(curr.left==null){
+                    curr.left= new TreeNode(Key);
+                    return root;
+                }
+                curr= curr.left;
+            }
+        }
+        root= new TreeNode(Key);
+        return root;
+    }
+}
