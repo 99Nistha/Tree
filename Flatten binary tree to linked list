@@ -1,0 +1,23 @@
+class Solution
+{
+    public static void flatten(Node root)
+    {
+        //code here, we will use morris
+        Node curr= root;
+        while(curr!=null){
+            if(curr.left!=null){
+                Node prev= curr.left;
+                while(prev.right!=null){ // go to the very right of the left node
+                    prev= prev.right;
+                }
+                prev.right= curr.right; // point it to curr right
+                curr.right= curr.left; // curr right, will be its left
+                curr.left=null;// and curr left will be null
+            }
+            curr= curr.right;// keep on moving to right
+        }
+        return;
+    }
+}
+//TC: O(N)
+//SC: O(1)
