@@ -1,0 +1,30 @@
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root==null) return null;
+        TreeNode curr= root;
+        if(curr.val==key) return delete(curr);
+        while(curr!=null){
+            if(curr.val> key){
+                if(curr.left!=null && curr.left.val==key){
+                    curr.left= delete(curr.left);
+                }else curr= curr.left;
+            }else{
+                if(curr.right!=null && curr.right.val==key){
+                    curr.right= delete(curr.right);
+                }
+                curr= curr.right;
+            }
+        }
+        return root;
+    }
+    public static TreeNode delete(TreeNode curr){
+         if(curr.left==null) return curr.right;
+         if(curr.right==null) return curr.left;
+         TreeNode prev= curr.left;
+         while(prev.right!=null) prev= prev.right;
+         prev.right= curr.right;
+         return curr.left;
+    }
+}
+//TC: O(H)
+//SC: O(1)
